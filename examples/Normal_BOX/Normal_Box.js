@@ -28,8 +28,6 @@ function init () {
 
   const scene = new THREE.Scene()
 
-  scene.add(new THREE.AxesHelper(100))
-
   const camera = new THREE.PerspectiveCamera( 45, width/height, 5, 1000 )
   camera.position.set(30,30,60)
   scene.add(camera)
@@ -50,9 +48,9 @@ function init () {
   scene.add(plane)
 
   const controls = new OrbitControls( camera, renderer.domElement )
-  controls.enableZoom = value
-  controls.enablePan = value
-  controls.enableRotate = value
+  controls.enableZoom = false
+  controls.enablePan = false
+  controls.enableRotate = false
 
   gui.add( guiConfig, 'activeOrbit' )
     .name('コントロールを有効')
@@ -62,10 +60,10 @@ function init () {
       controls.enableRotate = value
     })
   
-  const animate = (delta) => {
+  const animate = () => {
     requestAnimationFrame( animate )
 
-    controls.update(delta);
+    controls.update()
     renderer.render( scene, camera )
   }
   animate()
