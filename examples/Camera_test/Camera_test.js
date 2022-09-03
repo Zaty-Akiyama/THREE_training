@@ -1,27 +1,15 @@
 import * as THREE from "three"
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 
 const gui = new GUI()
 const guiConfig = {
-  activeOrbit: false,
   resetWindow: () => {
     document.location.reload()
   },
+  fov: 45,
+  near: 0.1,
+  far: 1000
 }
-const positionConfig = {
-  positionX: 0,
-  positionY: 0,
-  positionZ: 0,
-  rotationX: 0,
-  rotationY: 0,
-  rotationZ: 0,
-  scaleX: 1,
-  scaleY: 1,
-  scaleZ: 1,
-}
-gui.add( guiConfig, 'resetWindow' )
-  .name('ページをリセット')
 
 init()
 function init () {
@@ -40,49 +28,23 @@ function init () {
   const scene = new THREE.Scene()
 
   const camera = new THREE.PerspectiveCamera( 45, width/height, 5, 1000 )
-  camera.position.set(30,30,60)
+  camera.position.set(130,30,60)
+  camera.lookAt(0,0,0)
   scene.add(camera)
 
-  const cameraConfig = {
-    position: new THREE.Vector3(0,0,0),
-    rotation: new THREE.Vector3(0,0,0)
-  }  
+  gui.add( guiConfig, 'fov', 0, 100)
+    .onChange( value => {
+      camera.fov = value
+    })
+  gui.add( guiConfig, 'near', 0.001, 1000)
+    .onChange( value => {
+      camera.near = value
+    })
+  gui.add( guiConfig, 'far', 0.001, 1000)
+    .onChange( value => {
+      camera.far = value
+    })
 
-  const cameraGUI = gui.addFolder( 'Camera' )
-
-  cameraGUI.add( cameraConfig.position, 'x' ).listen().name('Position X')
-  cameraGUI.add( cameraConfig.position, 'y' ).listen().name('Position X')
-  cameraGUI.add( cameraConfig.position, 'z' ).listen().name('Position X')
-
-  cameraGUI.add( cameraConfig.rotation, 'x' ).listen().name('Rotation X')
-  cameraGUI.add( cameraConfig.rotation, 'y' ).listen().name('Rotation Y')
-  cameraGUI.add( cameraConfig.rotation, 'z' ).listen().name('Rotation Z')
-
-  const boxGeo = new THREE.BoxGeometry(10,10,10)
-  const boxMat = new THREE.MeshNormalMaterial()
-  const box = new THREE.Mesh(boxGeo,boxMat)
-  scene.add(box)
-
-  const propGUI = gui.addFolder( 'property' )
-
-  propGUI.add( positionConfig, 'positionX', -50, 50 )
-  propGUI.add( positionConfig, 'positionY', -50, 50 )
-  propGUI.add( positionConfig, 'positionZ', -50, 50 )
-
-  propGUI.add( positionConfig, 'rotationX', -10, 10 )
-  propGUI.add( positionConfig, 'rotationY', -10, 10 )
-  propGUI.add( positionConfig, 'rotationZ', -10, 10 )
-
-  propGUI.add( positionConfig, 'scaleX', 0.1, 10 )
-  propGUI.add( positionConfig, 'scaleY', 0.1, 10 )
-  propGUI.add( positionConfig, 'scaleZ', 0.1, 10 )
-
-  function boxUpdate () 
-  {
-    box.position.set( positionConfig.positionX, positionConfig.positionY, positionConfig.positionZ )
-    box.rotation.set( positionConfig.rotationX, positionConfig.rotationY, positionConfig.rotationZ )
-    box.scale.set( positionConfig.scaleX, positionConfig.scaleY, positionConfig.scaleZ )
-  }
 
   const planeGeo = new THREE.PlaneGeometry( 1000, 1000, 50, 50)
   const planeMat = new THREE.MeshBasicMaterial({
@@ -92,29 +54,12 @@ function init () {
   const plane = new THREE.Mesh(planeGeo,planeMat)
   plane.rotation.set(-Math.PI/2,0,0)
   scene.add(plane)
-
-  const controls = new OrbitControls( camera, renderer.domElement )
-  controls.addEventListener('change', e => {
-    cameraConfig.position.copy( camera.position )
-    cameraConfig.rotation.copy( camera.rotation )
-  })
-  controls.enableZoom = false
-  controls.enablePan = false
-  controls.enableRotate = false
-
-  gui.add( guiConfig, 'activeOrbit' )
-    .name('コントロールを有効')
-    .onChange( value => {
-      controls.enableZoom = value
-      controls.enablePan = value
-      controls.enableRotate = value
-    })
   
-  const animate = () => {
+
+  const animate = (delta) => {
     requestAnimationFrame( animate )
 
-    boxUpdate()
-    controls.update()
+    camera.updateProjectionMatrix()
     renderer.render( scene, camera )
   }
   animate()
