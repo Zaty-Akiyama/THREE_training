@@ -35,19 +35,19 @@ function init () {
   
   scene.add(light)
 
-  const lightHelper = new THREE.CameraHelper( light.shadow.camera )
+  const lightHelper = new THREE.SpotLightHelper( light )
   const lightGuiObj = { helper: false }
-  gui.add( lightGuiObj, 'helper' )
-    .name( 'Light Helper' )
-    .onChange( enable => {
-      if( enable )
-      {
-        scene.add( lightHelper )
-      }else
-      {
-        scene.remove( lightHelper )
-      }
-    })
+  // gui.add( lightGuiObj, 'helper' )
+  //   .name( 'Light Helper' )
+  //   .onChange( enable => {
+  //     if( enable )
+  //     {
+  //       scene.add( lightHelper )
+  //     }else
+  //     {
+  //       scene.remove( lightHelper )
+  //     }
+  //   })
 
   const camera = new THREE.PerspectiveCamera( 45, width/height, 5, 1000 )
   camera.position.set(150,50,60)
