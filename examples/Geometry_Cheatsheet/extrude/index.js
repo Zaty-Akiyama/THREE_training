@@ -24,9 +24,28 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.BoxGeometry(10,10,10,10,10,10)
-  const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  const shapes = new THREE.Shape() 
+  const x=-5
+  const y=-5
+  shapes.moveTo( x + 5, y + 5 )
+  shapes.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y )
+  shapes.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 )
+  shapes.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 )
+  shapes.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 )
+  shapes.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y )
+  shapes.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 )
+
+  const options = {
+    depth: 10,
+    bevelThickness: 3,
+    bavelSize: 1,
+  }
+
+  const geo = new THREE.ExtrudeGeometry(shapes,options)
+  const mat = new THREE.MeshNormalMaterial({wireframe:true})
+  mat.side = THREE.DoubleSide
   const mesh = new THREE.Mesh(geo,mat)
+  mesh.scale.set(.5,.5,.5)
   scene.add(mesh)
 
   const controls = new OrbitControls( camera, renderer.domElement )

@@ -24,8 +24,9 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.BoxGeometry(10,10,10,10,10,10)
+  const geo = new THREE.RingGeometry(5,10,20)
   const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  mat.side = THREE.DoubleSide
   const mesh = new THREE.Mesh(geo,mat)
   scene.add(mesh)
 

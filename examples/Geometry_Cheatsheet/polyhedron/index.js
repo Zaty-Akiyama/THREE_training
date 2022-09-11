@@ -24,8 +24,19 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.BoxGeometry(10,10,10,10,10,10)
+  const vertices = [
+    -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+    -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+  ]
+  const indices = [
+    2,1,0,    0,3,2,
+    7,3,0,    1,2,6,    
+    6,7,4,    7,6,2
+  ]
+
+  const geo = new THREE.PolyhedronGeometry(vertices,indices,10,1)
   const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  mat.side = THREE.DoubleSide
   const mesh = new THREE.Mesh(geo,mat)
   scene.add(mesh)
 

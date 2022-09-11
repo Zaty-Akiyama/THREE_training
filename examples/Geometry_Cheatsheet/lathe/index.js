@@ -24,9 +24,16 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.BoxGeometry(10,10,10,10,10,10)
-  const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  const points = []
+  for ( let i = 0; i < 10; i ++ ) {
+    points.push( new THREE.Vector2( Math.sin( i ) * 5 + 10, ( i - 4 ) * 4 ) )
+  }
+
+  const geo = new THREE.LatheGeometry(points)
+  const mat = new THREE.MeshNormalMaterial({wireframe:true})
+  mat.side = THREE.DoubleSide
   const mesh = new THREE.Mesh(geo,mat)
+  mesh.scale.set(.4,.4,.4)
   scene.add(mesh)
 
   const controls = new OrbitControls( camera, renderer.domElement )

@@ -24,9 +24,11 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.BoxGeometry(10,10,10,10,10,10)
-  const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  const geo = new THREE.IcosahedronGeometry(20,0)
+  const mat = new THREE.MeshNormalMaterial({wireframe:true})
+  mat.side = THREE.DoubleSide
   const mesh = new THREE.Mesh(geo,mat)
+  mesh.scale.set(.4,.4,.4)
   scene.add(mesh)
 
   const controls = new OrbitControls( camera, renderer.domElement )
