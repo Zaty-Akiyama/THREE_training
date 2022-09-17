@@ -1,8 +1,7 @@
 import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-init()
-function init () {
+const init = () => {
 
   const width = window.innerWidth
   const height = window.innerHeight
@@ -24,20 +23,20 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.TorusGeometry(5,2,5,15)
-  const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  const geo = new THREE.SphereGeometry(10)
+  const mat = new THREE.MeshNormalMaterial({wireframe:true})
   mat.side = THREE.DoubleSide
-  const mesh = new THREE.Mesh(geo,mat)
-  scene.add(mesh)
+  const meshSphere = new THREE.Mesh(geo,mat)
+  scene.add(meshSphere)
 
   const controls = new OrbitControls( camera, renderer.domElement )
 
   const animate = (delta) => {
     requestAnimationFrame( animate )
 
-    mesh.rotation.x += .005
-    mesh.rotation.y += .005
-    mesh.rotation.z += .005
+    meshSphere.rotation.x += .005
+    meshSphere.rotation.y += .005
+    meshSphere.rotation.z += .005
 
     controls.update()
     renderer.render( scene, camera )
@@ -54,3 +53,4 @@ function init () {
   }
   window.addEventListener('resize',onWindowResize,false)
 }
+init()
