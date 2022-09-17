@@ -12,6 +12,9 @@ module.exports = {
   resolve: {
     extensions:  [".js",".glsl"],
   },
+  performance: {
+    hints: false
+  },
   module: {
     rules: [
       {

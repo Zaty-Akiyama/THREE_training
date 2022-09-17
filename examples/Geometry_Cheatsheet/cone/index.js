@@ -1,6 +1,4 @@
 import * as THREE from "three"
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js"
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 init()
@@ -26,38 +24,20 @@ function init () {
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const loader = new FontLoader()
-  const group = new THREE.Group()
-  scene.add(group)
-  loader.load( './helvetiker_regular.typeface.json', font => {
-    const geo = new TextGeometry('white-sesame.jp',{
-      font: font,
-      size: 3,
-      height: 2,
-      curveSegments: 12,
-      bevelEnabled: true,
-      bevelThickness: 1,
-      bevelSize: .1,
-      bevelOffset: 0,
-      bevelSegments: 1  
-    })
-    const mat = new THREE.MeshNormalMaterial()
-    mat.side = THREE.DoubleSide
-    const mesh = new THREE.Mesh(geo,mat)
-    mesh.position.x = -14
-
-    group.add(mesh)
-  })
+  const geo = new THREE.ConeGeometry(5,10,20)
+  const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  mat.side = THREE.DoubleSide
+  const mesh = new THREE.Mesh(geo,mat)
+  scene.add(mesh)
 
   const controls = new OrbitControls( camera, renderer.domElement )
 
   const animate = (delta) => {
     requestAnimationFrame( animate )
 
-    if( group === undefined ) return
-    group.rotation.x += .005
-    group.rotation.y += .005
-    group.rotation.z += .005
+    mesh.rotation.x += .005
+    mesh.rotation.y += .005
+    mesh.rotation.z += .005
 
     controls.update()
     renderer.render( scene, camera )
