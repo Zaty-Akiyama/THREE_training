@@ -55,9 +55,6 @@ function init () {
     requestAnimationFrame( animate )
 
     if( group === undefined ) return
-    group.rotation.x += .005
-    group.rotation.y += .005
-    group.rotation.z += .005
 
     controls.update()
     renderer.render( scene, camera )
