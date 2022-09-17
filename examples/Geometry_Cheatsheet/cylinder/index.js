@@ -2,7 +2,7 @@ import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 init()
-function init () {
+const init = () => {
 
   const width = window.innerWidth
   const height = window.innerHeight
@@ -27,17 +27,17 @@ function init () {
   const geo = new THREE.CylinderGeometry(5,5,10,10)
   const mat = new THREE.MeshNormalMaterial({wireframe: true})
   mat.side = THREE.DoubleSide
-  const mesh = new THREE.Mesh(geo,mat)
-  scene.add(mesh)
+  const meshCylinder = new THREE.Mesh(geo,mat)
+  scene.add(meshCylinder)
 
   const controls = new OrbitControls( camera, renderer.domElement )
 
   const animate = (delta) => {
     requestAnimationFrame( animate )
 
-    mesh.rotation.x += .005
-    mesh.rotation.y += .005
-    mesh.rotation.z += .005
+    meshCylinder.rotation.x += .005
+    meshCylinder.rotation.y += .005
+    meshCylinder.rotation.z += .005
 
     controls.update()
     renderer.render( scene, camera )
