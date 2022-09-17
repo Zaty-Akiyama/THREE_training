@@ -22,7 +22,7 @@ function init () {
   const scene = new THREE.Scene()
 
   const camera = new THREE.PerspectiveCamera( 45, width/height, 5, 1000 )
-  camera.position.set( 0,0,30 )
+  camera.position.set( 0,-5,20 )
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
@@ -44,7 +44,8 @@ function init () {
     const mat = new THREE.MeshNormalMaterial()
     mat.side = THREE.DoubleSide
     const mesh = new THREE.Mesh(geo,mat)
-    mesh.position.x = -14
+    mesh.position.x = -15
+    mesh.position.y = -2
 
     group.add(mesh)
   })
