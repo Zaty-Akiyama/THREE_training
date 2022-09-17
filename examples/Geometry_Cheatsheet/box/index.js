@@ -2,7 +2,7 @@ import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 init()
-function init () {
+const init = () => {
 
   const width = window.innerWidth
   const height = window.innerHeight
