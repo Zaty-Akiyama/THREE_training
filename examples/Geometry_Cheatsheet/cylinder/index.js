@@ -1,7 +1,6 @@
 import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-init()
 const init = () => {
 
   const width = window.innerWidth
@@ -54,3 +53,4 @@ const init = () => {
   }
   window.addEventListener('resize',onWindowResize,false)
 }
+init()
