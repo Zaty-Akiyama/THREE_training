@@ -1,11 +1,11 @@
 import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-const init = () => {
+init()
+function init () {
 
   const width = window.innerWidth
   const height = window.innerHeight
-
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true
@@ -15,28 +15,26 @@ const init = () => {
   renderer.setSize( width, height )
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.shadowMap.enabled = true
-
   const scene = new THREE.Scene()
-
   const camera = new THREE.PerspectiveCamera( 45, width/height, 5, 1000 )
   camera.position.set( 0,0,30 )
   camera.lookAt( 0, 0, 0 )
   scene.add(camera)
 
-  const geo = new THREE.SphereGeometry(10)
-  const mat = new THREE.MeshNormalMaterial({wireframe:true})
+  const geo = new THREE.TorusGeometry(5,2,5,15)
+  const mat = new THREE.MeshNormalMaterial({wireframe: true})
   mat.side = THREE.DoubleSide
-  const meshSphere = new THREE.Mesh(geo,mat)
-  scene.add(meshSphere)
+  const meshTorus = new THREE.Mesh(geo,mat)
+  scene.add(meshTorus)
 
   const controls = new OrbitControls( camera, renderer.domElement )
 
   const animate = (delta) => {
     requestAnimationFrame( animate )
 
-    meshSphere.rotation.x += .005
-    meshSphere.rotation.y += .005
-    meshSphere.rotation.z += .005
+    meshTorus.rotation.x += .005
+    meshTorus.rotation.y += .005
+    meshTorus.rotation.z += .005
 
     controls.update()
     renderer.render( scene, camera )
@@ -53,4 +51,3 @@ const init = () => {
   }
   window.addEventListener('resize',onWindowResize,false)
 }
-init()
