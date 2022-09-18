@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cheatsheet</title>
+  <style>
+    body{margin:0;padding:0;}
+    .geo-cheat-sheet {
+      margin: 8rem 0;
+      padding: 0 2rem;
+    }
+    .geo-cheat-sheet__title {
+      font-size: 2.8rem;
+      text-align: center;
+    }
+    .geo-cheat-sheet__content {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .geo-cheat-sheet__ad {
+      min-width: 30rem;
+    }
+    .geo-cheat-sheet__lists {
+      flex: 1;
+      min-width: 60rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @media (max-width: 1280px) {
+      .geo-cheat-sheet__ad {
+        min-width: 100%;
+        margin: auto;
+      }
+    }
+    @media (max-width: 768px) {
+      .geo-cheat-sheet {
+        margin: 4rem 0;
+        padding: 0 2rem;
+      }
+      .geo-cheat-sheet__title {
+        font-size: 2.4rem;
+      }
+    }
+    @media (max-width: 640px) {
+      .geo-cheat-sheet {
+        margin: 2.4rem 0 4rem;
+      }
+      .geo-cheat-sheet__title {
+        font-size: 2rem;
+      }
+      .geo-cheat-sheet__content {
+        margin-top: 2.4rem;
+      }
+      .geo-cheat-sheet__lists {
+        max-width: 100%;
+        min-width: auto;
+      }
+    }
+    .geoItem
+    {
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div data-item-num="" class="geo-cheat-sheet__lists geoCheatSheet" style="position: relative;">
+    <canvas id="wrapperCanvas" style="transform: translateY(0px); position:absolute;left: 0;width: 100%;height: 100%;"></canvas>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Box</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Plane</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Sphere</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Cylinder</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Torus</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">TorusKnot</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Ring</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Polyhedron</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Shape</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Extrude</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Capsule</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Cone</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Dodecahedron</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Icosahedron</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Octahedron</div>
+    </div>
+    <div class="geoItem" style="width: 200px; height: 150px; transition: .5s width;">
+      <div style="text-align: center; font-size: 14px; color: #555;">Tetrahedron</div>
+    </div>
+    <div style="width: 100%;">
+      <div class="geoItem" style="width: 360px; height: 150px; margin: auto;transition: .5s width;">
+        <div style="text-align: center; font-size: 14px; color: #555;">Text</div>
+      </div>  
+    </div>
+  </div>
+  <script src="./bundle.js"></script>
+</body>
+</html>
