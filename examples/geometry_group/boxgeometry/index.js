@@ -53,7 +53,9 @@ const init = () => {
   scene.add(meshBox)
 
   Object.keys(geoConfig).forEach( key => {
-    gui.add( geoConfig, key.toString(), 1.0, 20.0, 1.0 )
+    const minValue = key.toString() === 'depth' ? 0.0 : 1.0
+    const stepValue = key.toString().match(/Segment/) ? 1.0 : 0.1
+    gui.add( geoConfig, key.toString(), minValue, 20.0, stepValue )
       .onChange( () => {
         const newGeo = new THREE.BoxGeometry( 
           geoConfig.width,
