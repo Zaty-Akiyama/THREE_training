@@ -5,6 +5,15 @@ const gui = new GUI()
 const verticesConfig = {
   x: 1.0, y: 1.0, z: 1.0
 }
+const guiConfig = {
+  activeOrbit: false,
+  resetWindow: () => {
+    document.location.reload()
+  },
+}
+gui.add( guiConfig, 'resetWindow' )
+  .name('ページをリセット')
+
 
 const init = () => {
 
@@ -70,6 +79,17 @@ const init = () => {
   scene.add(meshBox)
 
   const controls = new OrbitControls( camera, renderer.domElement )
+  controls.enableZoom = false
+  controls.enablePan = false
+
+  gui.add( guiConfig, 'activeOrbit' )
+    .name('コントロールを有効')
+    .onChange( value => {
+      controls.enableZoom = value
+      controls.enablePan = value
+      controls.enableRotate = value
+    })
+
 
   const animate = (delta) => {
     requestAnimationFrame( animate )
