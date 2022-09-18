@@ -13,7 +13,6 @@ const init = () => {
 
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
-    alpha: true
   })
   document.body.appendChild(renderer.domElement)
   renderer.setPixelRatio( window.devicePixelRatio )
@@ -32,6 +31,7 @@ const init = () => {
      1.0, -1.0,  1.0,
      1.0,  1.0,  1.0,
   ])
+  
   gui.add( verticesConfig, 'x', -5.0, 5.0, .1 )
     .onChange( value => {
       vertices = new Float32Array([
@@ -64,7 +64,7 @@ const init = () => {
   const geo = new THREE.BufferGeometry()
   geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
 
-  const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  const mat = new THREE.MeshBasicMaterial({wireframe: true, color: 0xffffff})
   mat.side = THREE.DoubleSide
   const meshBox = new THREE.Mesh(geo,mat)
   scene.add(meshBox)
