@@ -19,7 +19,6 @@ const init = () => {
   renderer.setPixelRatio( window.devicePixelRatio )
   renderer.setSize( width, height )
   renderer.outputEncoding = THREE.sRGBEncoding
-  renderer.shadowMap.enabled = true
 
   const scene = new THREE.Scene()
 
@@ -32,49 +31,33 @@ const init = () => {
     -1.0, -1.0,  1.0,
      1.0, -1.0,  1.0,
      1.0,  1.0,  1.0,
-
-     1.0,  1.0,  1.0,
-    -1.0,  1.0,  1.0,
-    -1.0, -1.0,  1.0
   ])
   gui.add( verticesConfig, 'x', -5.0, 5.0, .1 )
-     .onChange( value => {
+    .onChange( value => {
       vertices = new Float32Array([
         -1.0, -1.0,  1.0,
-         1.0, -1.0,  1.0,
-         verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
-    
-         verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
-        -1.0,  1.0,  1.0,
-        -1.0, -1.0,  1.0
+        1.0, -1.0,  1.0,
+        verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
       ])
       geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
-     })
-    gui.add( verticesConfig, 'y', -5.0, 5.0, .1 )
-    .onChange( value => {
-    vertices = new Float32Array([
-      -1.0, -1.0,  1.0,
-        1.0, -1.0,  1.0,
-        verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
-  
-        verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
-        -1.0,  1.0,  1.0,
-      -1.0, -1.0,  1.0
-    ])
-    geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
     })
-    gui.add( verticesConfig, 'z', -5.0, 5.0, .1 )
+  gui.add( verticesConfig, 'y', -5.0, 5.0, .1 )
     .onChange( value => {
-    vertices = new Float32Array([
-      -1.0, -1.0,  1.0,
+      vertices = new Float32Array([
+        -1.0, -1.0,  1.0,
         1.0, -1.0,  1.0,
         verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
-  
+      ])
+      geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
+    })
+  gui.add( verticesConfig, 'z', -5.0, 5.0, .1 )
+    .onChange( value => {
+      vertices = new Float32Array([
+        -1.0, -1.0,  1.0,
+        1.0, -1.0,  1.0,
         verticesConfig.x,  verticesConfig.y,  verticesConfig.z,
-        -1.0,  1.0,  1.0,
-      -1.0, -1.0,  1.0
-    ])
-    geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
+      ])
+      geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
     })
 
 
@@ -82,6 +65,7 @@ const init = () => {
   geo.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
 
   const mat = new THREE.MeshNormalMaterial({wireframe: true})
+  mat.side = THREE.DoubleSide
   const meshBox = new THREE.Mesh(geo,mat)
   scene.add(meshBox)
 
@@ -90,9 +74,9 @@ const init = () => {
   const animate = (delta) => {
     requestAnimationFrame( animate )
 
-    meshBox.rotation.x += .001
-    meshBox.rotation.y += .001
-    meshBox.rotation.z += .001
+    meshBox.rotation.x += .0005
+    meshBox.rotation.y += .0005
+    meshBox.rotation.z += .0005
 
     controls.update()
     renderer.render( scene, camera )
