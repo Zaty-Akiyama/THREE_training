@@ -3,8 +3,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 const gui = new GUI()
 const geoConfig = {
-  innerRadius: .5,
-  outerRadius: 1,
+  innerRadius: 2,
+  outerRadius: 5,
   thetaSegments: 8,
   phiSegments: 1,
   thetaStart: 0,
