@@ -91,7 +91,7 @@ const init = () => {
     mesh.geometry.dispose()
     mesh.geometry = newGeo
   }
-  gui.add( pointsConfig, 'linear' ).name( '一時関数' )
+  gui.add( pointsConfig, 'linear' ).name( '一次関数' )
   gui.add( pointsConfig, 'quadratic' ).name( '二次関数' )
   gui.add( pointsConfig, 'sin' ).name( 'sin関数' )
 
