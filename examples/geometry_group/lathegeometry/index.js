@@ -96,7 +96,7 @@ const init = () => {
   gui.add( pointsConfig, 'sin' ).name( 'sin関数' )
 
   Object.keys(geoConfig).forEach( key => {
-    const stepValue = key.toString().match(/Segments/) ? 1.0 : 0.01
+    const stepValue = key.toString().match(/segments/) ? 1.0 : 0.01
     const minValue = key.toString().match(/phi/) ? 0.0 : 1.0
     const maxValue = key.toString().match(/phi/) ? Math.PI*2 : 60
     gui.add( geoConfig, key.toString(), minValue, maxValue, stepValue )
