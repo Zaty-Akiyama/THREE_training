@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Zaty-Akiyama/THREE_training#readme",
   "devDependencies": {
+    "@tweenjs/tween.js": "^18.6.4",
     "babel-loader": "^8.2.5",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
