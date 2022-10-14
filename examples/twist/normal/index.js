@@ -23,33 +23,35 @@ const init = () => {
   
   const length = 20
   const segment = 50
-  const boxGeo = new THREE.BoxGeometry(length,length,length, segment, segment, segment)
+  const boxGeo = new THREE.BoxGeometry(length,length,length, segment,segment,segment)
   const boxMat = new THREE.MeshNormalMaterial()
   const box = new Mesh(boxGeo,boxMat)
   scene.add(box)
 
-  const twistAmount = {value: 0.0}
+  /** 追記 */
   const firstPos = boxGeo.attributes.position.clone()
 
   const twist = geometry => {
-    const quaternion = new THREE.Quaternion();
+    const quaternion = new THREE.Quaternion()
     
-    const position = firstPos.array
-    for (let i = 0; i < position.length; i=i+3) {
-      const postionVector = new THREE.Vector3(position[i],position[i+1],position[i+2])
-      const yPos = postionVector.y
+    const firstPosArray = firstPos.array
+    const geoPosition = geometry.attributes.position
+    for (let i = 0; i < firstPosArray.length; i=i+3) {
+      const postionVector = new THREE.Vector3(firstPosArray[i],firstPosArray[i+1],firstPosArray[i+2])
+
       const upVec = new THREE.Vector3(0, 1, 0)
   
       quaternion.setFromAxisAngle(
         upVec, 
-        (Math.PI / 180) * ((yPos + 10 ) * 3)
+        (Math.PI / 180) * (postionVector.y + 10) * 3
       )
   
-      postionVector.applyQuaternion(quaternion);
-      geometry.attributes.position.array[i] = postionVector.x
-      geometry.attributes.position.array[i+1] = postionVector.y
-      geometry.attributes.position.array[i+2] = postionVector.z
+      postionVector.applyQuaternion(quaternion)
+      geoPosition.array[i] = postionVector.x
+      geoPosition.array[i+1] = postionVector.y
+      geoPosition.array[i+2] = postionVector.z
     }
+    geoPosition.needsUpdate = true
   }
   twist(boxGeo)
 

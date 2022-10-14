@@ -33,30 +33,29 @@ const init = () => {
   const twistAmount = {value: 0.0}
   const firstPos = boxGeo.attributes.position.clone()
 
-  /** 多分一番重要な部分 */
   const twist = geometry => {
-    const quaternion = new THREE.Quaternion();
+    const quaternion = new THREE.Quaternion()
     
-    const position = firstPos.array
-    for (let i = 0; i < position.length; i=i+3) {
-      const postionVector = new THREE.Vector3(position[i],position[i+1],position[i+2])
-      const yPos = postionVector.y
-      const upVec = new THREE.Vector3(0, 1, 0)
-  
-      quaternion.setFromAxisAngle(
-        upVec, 
-        (Math.PI / 180) * ((yPos + 10) * twistAmount.value)
-      )
-  
-      postionVector.applyQuaternion(quaternion);
-      geometry.attributes.position.array[i] = postionVector.x
-      geometry.attributes.position.array[i+1] = postionVector.y
-      geometry.attributes.position.array[i+2] = postionVector.z
-    }
-    boxGeo.attributes.position.needsUpdate = true
+    const posArray = firstPos.array
+    const geoPosition = geometry.attributes.position
+    for (let i = 0; i < firstPos.count*3; i=i+3) {
+      const postionVector = new THREE.Vector3(posArray[i],posArray[i+1],posArray[i+2])
 
+      const upVec = new THREE.Vector3(0, 1, 0)
+
+      quaternion.setFromAxisAngle(
+        upVec,
+        (Math.PI / 180) * ((postionVector.y + 10) * twistAmount.value)
+      )
+
+      postionVector.applyQuaternion(quaternion)
+      geoPosition.array[i]   = postionVector.x
+      geoPosition.array[i+1] = postionVector.y
+      geoPosition.array[i+2] = postionVector.z
+    }
+    geoPosition.needsUpdate = true
   }
-  
+
   let start = 0.0
   let onDown = false
   window.addEventListener('pointerdown', e => {
@@ -66,6 +65,7 @@ const init = () => {
   })
   window.addEventListener('pointermove', e => {
     if( !onDown ) return
+    e.preventDefault()
     const delta = e.clientX - start
     start = e.clientX
     twistAmount.value += delta * .01
@@ -73,17 +73,16 @@ const init = () => {
   })
   window.addEventListener('pointerup', () => {
     new TWEEN.Tween(twistAmount)
-    .to( { value: 0.0 }, 1000)
-    .easing(TWEEN.Easing.Elastic.Out)
-    .onUpdate(()=>{
-      twist(boxGeo)
-    })
-    .start()
-    .onComplete(() => {
-      onDown = false
-    })
+      .to( { value: 0.0 }, 1000)
+      .easing(TWEEN.Easing.Elastic.Out)
+      .onUpdate(()=>{
+        twist(boxGeo)
+      })
+      .start()
+      .onComplete(() => {
+        onDown = false
+      })
   })
-
 
   const animate = delta => {
     requestAnimationFrame( animate )

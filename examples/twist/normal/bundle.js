@@ -49964,25 +49964,26 @@
 		const boxMat = new three__WEBPACK_IMPORTED_MODULE_0__.MeshNormalMaterial();
 		const box = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(boxGeo, boxMat);
 		scene.add(box);
-		const twistAmount = {
-			value: 0.0
-		};
+		/** 追記 */
+	
 		const firstPos = boxGeo.attributes.position.clone();
 	
 		const twist = geometry => {
 			const quaternion = new three__WEBPACK_IMPORTED_MODULE_0__.Quaternion();
-			const position = firstPos.array;
+			const firstPosArray = firstPos.array;
+			const geoPosition = geometry.attributes.position;
 	
-			for (let i = 0; i < position.length; i = i + 3) {
-				const postionVector = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(position[i], position[i + 1], position[i + 2]);
-				const yPos = postionVector.y;
+			for (let i = 0; i < firstPosArray.length; i = i + 3) {
+				const postionVector = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(firstPosArray[i], firstPosArray[i + 1], firstPosArray[i + 2]);
 				const upVec = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 1, 0);
-				quaternion.setFromAxisAngle(upVec, Math.PI / 180 * ((yPos + 10) * 3));
+				quaternion.setFromAxisAngle(upVec, Math.PI / 180 * (postionVector.y + 10) * 3);
 				postionVector.applyQuaternion(quaternion);
-				geometry.attributes.position.array[i] = postionVector.x;
-				geometry.attributes.position.array[i + 1] = postionVector.y;
-				geometry.attributes.position.array[i + 2] = postionVector.z;
+				geoPosition.array[i] = postionVector.x;
+				geoPosition.array[i + 1] = postionVector.y;
+				geoPosition.array[i + 2] = postionVector.z;
 			}
+	
+			geoPosition.needsUpdate = true;
 		};
 	
 		twist(boxGeo);
